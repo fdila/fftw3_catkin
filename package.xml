@@ -1,9 +1,9 @@
 <?xml version="1.0"?>                                                           
 <package>                                                                       
   <name>fftw3_catkin</name>                                                   
-  <version>0.0.0</version>                                                      
+  <version>3.3.8</version>                                                      
   <description>fftw3_catkin</description>                                     
-  <maintainer email="lukas.bernreiter@mavt.ethz.ch">Paul Furgale</maintainer>       
+  <maintainer email="lukas.bernreiter@mavt.ethz.ch">Lukas Bernreiter</maintainer>       
   <author>Lukas Bernreiter</author>                                                 
   <license>New BSD</license>                                                    
                                                                                

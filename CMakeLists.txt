@@ -6,26 +6,25 @@ add_definitions(-std=c++14)
 find_package(catkin_simple REQUIRED)
 catkin_simple()
 
-include_directories(${Eigen_INCLUDE_DIRS})
-
 include(ExternalProject)
 
 file(MAKE_DIRECTORY ${CATKIN_DEVEL_PREFIX}/include)
 
+SET(FFTW_SRC_PATH "fftw3_src")
+SET(FFTW_BUILD_PATH "fftw3_build")
 ExternalProject_Add(fftw3_src
   URL http://fftw.org/fftw-3.3.8.tar.gz
   URL_MD5 8aac833c943d8e90d51b697b27d4384d
-  SOURCE_DIR fftw3_src
+  SOURCE_DIR ${FFTW_SRC_PATH}
+  BINARY_DIR ${FFTW_BUILD_PATH}
   UPDATE_COMMAND ""
   CONFIGURE_COMMAND
       # Configuring FFTW3
-      mkdir -p ../fftw3_src/build/ &&
-      cd ../fftw3_src/build &&
-      cmake ..
-        -DCMAKE_BUILD_TYPE=Release
+      #mkdir -p ../fftw3_src/build/ &&
+      cd ../${FFTW_BUILD_PATH} &&
+      cmake ../${FFTW_SRC_PATH}
         -DCMAKE_BUILD_TYPE=Release
         -LA
-        -G"Unix Makefiles"
         -DDISABLE_FORTRAN=ON
         -DENABLE_AVX2=ON
         -DENABLE_SSE=ON
@@ -35,11 +34,12 @@ ExternalProject_Add(fftw3_src
         -DENABLE_OPENMP=ON
   BUILD_COMMAND
       # Building FFTW3
-      cd ../fftw3_src/build/ &&
-      make -j8
+      cd ../${FFTW_BUILD_PATH} && make -j8
   INSTALL_COMMAND
-      cp ../fftw3_src/build/libfftw3* ${CATKIN_DEVEL_PREFIX}/lib/ &&
-      cp  ../fftw3_src/api/*.h ${CATKIN_DEVEL_PREFIX}/include/fftw3 &&
+      cd ../${FFTW_BUILD_PATH} && make install -j8
+
+  #cp ../${FFTW_BUILD_PATH}/build/libfftw3* ${CATKIN_DEVEL_PREFIX}/lib/ &&
+  #cp  ../${FFTW_SRC_PATH}/api/*.h ${CATKIN_DEVEL_PREFIX}/include/fftw3 &&
 )
 
 cs_install()

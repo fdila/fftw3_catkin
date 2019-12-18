@@ -36,9 +36,10 @@ ExternalProject_Add(fftw3_src
       # Building FFTW3
       cd ../${FFTW_BUILD_PATH} && make -j8
   INSTALL_COMMAND
-      cp ../${FFTW_BUILD_PATH}/libfftw3.so ${CATKIN_DEVEL_PREFIX}/lib/ &&
+      cp ../${FFTW_BUILD_PATH}/libfftw3.so ${CATKIN_PACKAGE_LIB_DESTINATION} &&
       mkdir -p ${CATKIN_DEVEL_PREFIX}/include/fftw3 &&
       cp  ../${FFTW_SRC_PATH}/api/fftw3.h ${CATKIN_DEVEL_PREFIX}/include/fftw3
 )
 
-cs_export(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include)
+cs_export(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include
+          LIBRARIES fftw3)

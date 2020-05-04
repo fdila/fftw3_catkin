@@ -38,6 +38,8 @@ ExternalProject_Add(fftw3_src
       cd ../${FFTW_BUILD_PATH} && make -j8
   INSTALL_COMMAND
       cp ../${FFTW_BUILD_PATH}/libfftw3.so ${CATKIN_DEVEL_PREFIX}/lib/ &&
+      cp ../${FFTW_BUILD_PATH}/libfftw3_threads.so ${CATKIN_DEVEL_PREFIX}/lib/ &&
+      cp ../${FFTW_BUILD_PATH}/libfftw3_omp.so ${CATKIN_DEVEL_PREFIX}/lib/ &&
       mkdir -p ${CATKIN_DEVEL_PREFIX}/include/fftw3 &&
       cp  ../${FFTW_SRC_PATH}/api/fftw3.h ${CATKIN_DEVEL_PREFIX}/include/fftw3
 )
@@ -48,8 +50,10 @@ install(DIRECTORY ${CATKIN_DEVEL_PREFIX}/lib/
 
 cs_add_library(${PROJECT_NAME} src/wrap.cc)
 add_dependencies(${PROJECT_NAME} fftw3_src)
-target_link_libraries(${PROJECT_NAME} ${CATKIN_DEVEL_PREFIX}/lib/libfftw3${CMAKE_SHARED_LIBRARY_SUFFIX})
-
+target_link_libraries(${PROJECT_NAME}
+  ${CATKIN_DEVEL_PREFIX}/lib/libfftw3${CMAKE_SHARED_LIBRARY_SUFFIX}
+  ${CATKIN_DEVEL_PREFIX}/lib/libfftw3_threads${CMAKE_SHARED_LIBRARY_SUFFIX}
+  ${CATKIN_DEVEL_PREFIX}/lib/libfftw3_omp${CMAKE_SHARED_LIBRARY_SUFFIX})
 cs_install()
 cs_export(INCLUDE_DIRS ${CATKIN_DEVEL_PREFIX}/include
-	  LIBRARIES fftw3)
+	  LIBRARIES fftw3 fftw3_threads fftw3_omp)

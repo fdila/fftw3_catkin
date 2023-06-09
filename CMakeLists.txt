@@ -40,6 +40,9 @@ ExternalProject_Add(fftw3_src
       cp ../${FFTW_BUILD_PATH}/libfftw3.so ${CATKIN_DEVEL_PREFIX}/lib/ &&
       cp ../${FFTW_BUILD_PATH}/libfftw3_threads.so ${CATKIN_DEVEL_PREFIX}/lib/ &&
       cp ../${FFTW_BUILD_PATH}/libfftw3_omp.so ${CATKIN_DEVEL_PREFIX}/lib/ &&
+      cp ../${FFTW_BUILD_PATH}/libfftw3${CMAKE_SHARED_LIBRARY_SUFFIX} ${CATKIN_DEVEL_PREFIX}/lib/ &&
+      cp ../${FFTW_BUILD_PATH}/libfftw3_threads${CMAKE_SHARED_LIBRARY_SUFFIX} ${CATKIN_DEVEL_PREFIX}/lib/ &&
+      cp ../${FFTW_BUILD_PATH}/libfftw3_omp${CMAKE_SHARED_LIBRARY_SUFFIX} ${CATKIN_DEVEL_PREFIX}/lib/ &&
       mkdir -p ${CATKIN_DEVEL_PREFIX}/include/fftw3 &&
       cp  ../${FFTW_SRC_PATH}/api/fftw3.h ${CATKIN_DEVEL_PREFIX}/include/fftw3
 )
